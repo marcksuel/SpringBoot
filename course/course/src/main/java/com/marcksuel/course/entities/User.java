@@ -1,7 +1,11 @@
 package com.marcksuel.course.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
+
+import com.fasterxml.jackson.annotation.*;
 
 import jakarta.persistence.*;
 
@@ -17,6 +21,10 @@ public class User implements Serializable {
 	private String email;
 	private String phone;
 	private String password;
+	
+	@JsonIgnore
+	@OneToMany(mappedBy = "client")
+	private List<Order> orders = new ArrayList<>();
 
 	public User() {
 	}
@@ -27,6 +35,7 @@ public class User implements Serializable {
 		this.email = email;
 		this.phone = phone;
 		this.password = password;
+		
 	}
 
 	public Long getId() {
@@ -48,6 +57,11 @@ public class User implements Serializable {
 	public String getPassword() {
 		return password;
 	}
+		
+	public List<Order> getOrders() {
+		return orders;
+	}
+
 
 	public void setId(Long id) {
 		this.id = id;
@@ -88,8 +102,10 @@ public class User implements Serializable {
 
 	@Override
 	public String toString() {
-		return "User \n" + "id: " + id + "" + "\nname: " + name + "\nemail: " + email + "\nphone: " + phone
-				+ "\npassword:" + password;
+		return "User [id=" + id + ", name=" + name + ", email=" + email + ", phone=" + phone + ", password=" + password
+				+ ", orders=" + orders + "]";
 	}
+
+	
 
 }
