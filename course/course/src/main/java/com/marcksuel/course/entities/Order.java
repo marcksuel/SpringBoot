@@ -106,5 +106,12 @@ public class Order implements Serializable {
 		Order other = (Order) obj;
 		return Objects.equals(id, other.id);
 	}
-
+	
+	public Double getTotal() {
+		Double sum=0.0;
+		for (OrderItem orderItem : items) {
+			sum+= orderItem.getSubTotal();
+		}
+		return sum;
+	}
 }

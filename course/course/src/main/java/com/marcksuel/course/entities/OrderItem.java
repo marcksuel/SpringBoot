@@ -87,7 +87,9 @@ public class OrderItem implements Serializable{
 		return true;
 	}
 	
-	
+	public Double getSubTotal() {
+		return getQuantity()*getPrice();
+	}
 	
 	
 	
