@@ -1,10 +1,18 @@
 package com.marcksuel.course.entities;
 
-import jakarta.persistence.Entity;
-
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
-import jakarta.persistence.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 
 @Entity
 @Table(name = "tb_category")
@@ -16,10 +24,9 @@ public class Category implements Serializable {
 	private Long id;
 	private String name;
 
-	// @JsonIgnore
-	// @OneToMany
-	// private Product product
-
+	@Transient
+	private Set<Product> product = new HashSet<>();
+	
 	public Category() {
 
 	}
@@ -37,6 +44,12 @@ public class Category implements Serializable {
 		return name;
 	}
 
+	
+	public Set<Product> getProduct() {
+		return product;
+	}
+
+	
 	public void setId(Long id) {
 		this.id = id;
 	}
