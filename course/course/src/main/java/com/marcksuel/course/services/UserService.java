@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.marcksuel.course.entities.User;
 import com.marcksuel.course.repositories.UserRepository;
+import com.marcksuel.course.services.exceptions.ResourceNotFoundException;
 
 @Service
 public class UserService {
@@ -21,7 +22,7 @@ public class UserService {
 	
 	public User findById(Long id) {
 		Optional<User> user = repository.findById(id);
-		return user.get();
+		return user.orElseThrow(() -> new ResourceNotFoundException(id));
 		
 	}
 	
@@ -42,6 +43,6 @@ public class UserService {
 	private void updateData(User entity, User user) {
 		entity.setName(user.getName());
 		entity.setEmail(user.getEmail());
-		entity.setPhone(user.getPhone());
+		entity.setPhone(user.getPhone());	
 	}
 }
